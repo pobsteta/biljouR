@@ -32,13 +32,14 @@ is obtained by difference / cascade through the soil layers.
 * **LAI phenology.** Evergreen stands keep a constant LAI; deciduous stands ramp
   from 0 to `lai_max` over 30 days after budburst and back to 0 over the 30 days
   before leaf fall.
-* **Transpiration.** `T = r(LAI) · PET`, with `r = 0.125·LAI` for `LAI ≤ 6` and
-  `r = 0.75` above. `T` is reduced by 20 % of intercepted water (wet canopy) and
-  scaled by `REW/REWc` under water stress (`REWc = 0.4`).
-* **Interception.** `Th = exp(a + b·R/R0 + c·P + d·P²)`, `In = P − Th`
-  (Aussenac 1968), with stand-type coefficients; `R/R0 = 100·exp(−k·LAI)`.
-* **Understorey/soil evaporation.** `Eu = PET·exp(−k·LAI)`, limited by the
-  upper-layer water.
+* **Transpiration.** $T = r(LAI) \cdot PET$, with $r = 0.125 \cdot LAI$ for
+  $LAI \le 6$ and $r = 0.75$ above. $T$ is reduced by 20 % of intercepted water
+  (wet canopy) and scaled by $REW/REW_c$ under water stress ($REW_c = 0.4$).
+* **Interception.** $Th = \exp(a + b \cdot R/R_0 + c \cdot P + d \cdot P^2)$,
+  $In = P - Th$ (Aussenac 1968), with stand-type coefficients;
+  $R/R_0 = 100 \cdot \exp(-k \cdot LAI)$.
+* **Understorey/soil evaporation.** $Eu = PET \cdot \exp(-k \cdot LAI)$, limited
+  by the upper-layer water.
 * **Soil & drainage.** Each layer refills through its microporosity while a
   fraction bypasses quickly through macroporosity; water above field capacity
   drains to the next layer. Root uptake is weighted by fine-root fraction and
