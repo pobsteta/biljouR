@@ -16,6 +16,8 @@ Description: An open re-implementation in R of the lumped daily forest water
     by INRAE. For authoritative simulations use the official tool at
     <https://appgeodb.nancy.inrae.fr/biljou/>.
 License: GPL-3
+URL: https://pobsteta.github.io/biljouR, https://github.com/pobsteta/biljouR
+BugReports: https://github.com/pobsteta/biljouR/issues
 Encoding: UTF-8
 Depends: R (>= 3.5.0)
 Suggests: testthat (>= 3.0.0), knitr, rmarkdown, ggplot2, sf, terra, jsonlite

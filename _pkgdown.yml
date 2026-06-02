@@ -1,0 +1,84 @@
+url: https://pobsteta.github.io/biljouR
+
+template:
+  bootstrap: 5
+  bslib:
+    primary: "#1b6ca8"
+
+lang: fr
+
+home:
+  title: biljouR - modèle de bilan hydrique forestier BILJOU en R
+  description: >
+    Réimplémentation indépendante en R du modèle de bilan hydrique forestier
+    BILJOU (Granier et al. 1999), avec indicateurs de sécheresse, graphiques,
+    statistiques inter-annuelles et pipeline cartographique SAFRAN.
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, github]
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: Prise en main
+        href: articles/biljou.html
+      - text: Cartographie de la sécheresse avec SAFRAN
+        href: articles/cartographie-safran.html
+
+reference:
+- title: Simulation
+  desc: Construire le sol, lancer le bilan hydrique journalier.
+  contents:
+  - biljou_soil
+  - biljou_run
+
+- title: Indicateurs et bilans
+  desc: Indicateurs annuels de sécheresse, classement, bilan des flux.
+  contents:
+  - biljou_indices
+  - biljou_rank_droughts
+  - biljou_annual_balance
+
+- title: Graphiques et statistiques
+  desc: Chroniques, superposition d'années, statistiques inter-annuelles.
+  contents:
+  - biljou_plot_timeseries
+  - biljou_plot_overlay
+  - biljou_doy_stats
+
+- title: Cartographie
+  desc: Exécution sur une grille de points et export SIG.
+  contents:
+  - biljou_run_grid
+  - biljou_grid_to_sf
+  - biljou_grid_to_raster
+
+- title: Données météo (SAFRAN) et ETP
+  desc: Accès aux données SAFRAN, conversion, évapotranspiration potentielle.
+  contents:
+  - safran_dataverse_files
+  - safran_download
+  - safran_nc_to_meteo
+  - safran_to_meteo
+  - penman_pet
+  - wind_to_2m
+
+- title: Fonctions de flux élémentaires
+  desc: Briques du modèle (phénologie, transpiration, interception…).
+  contents:
+  - biljou_lai
+  - transpiration_ratio
+  - potential_transpiration
+  - rainfall_interception
+  - potential_understorey_evap
+  - radiation_transmittance
+
+- title: Jeu de données
+  contents:
+  - meteo_hesse
+
+- title: Le package
+  contents:
+  - biljouR-package

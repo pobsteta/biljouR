@@ -5,3 +5,6 @@
 ^LICENSE\.md$
 ^\.Rproj\.user$
 ^.*\.Rproj$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

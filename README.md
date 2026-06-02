@@ -2,8 +2,11 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/pobsteta/biljouR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pobsteta/biljouR/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/pobsteta/biljouR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/pobsteta/biljouR/actions/workflows/pkgdown.yaml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
+
+📖 **Documentation et articles : <https://pobsteta.github.io/biljouR>**
 
 Réimplémentation **indépendante en R du modèle de bilan hydrique forestier
 BILJOU** (Granier, Bréda, Biron & Villette, 1999, *Ecological Modelling*

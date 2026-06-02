@@ -14,3 +14,6 @@ inst/doc/
 # OS
 .DS_Store
 Thumbs.db
+
+# pkgdown locally-built site
+docs/
