@@ -86,6 +86,40 @@ penman_pet(tmean = 18, rg = 22, wind = 2, rh = 65,
            doy = 180, latitude = 48.6, altitude = 250)
 ```
 
+## Graphics, inter-annual statistics and mapping
+
+With `ggplot2` installed, the package draws the same families of figures as the
+online tool. On a multi-year run:
+
+```{r, eval = FALSE}
+# multi-year chronicle / faceted time series
+biljou_plot_timeseries(run, vars = c("ETP", "ETR", "transpiration", "REW"))
+
+# overlay years by day-of-year, with a median curve (REW shown with its threshold)
+biljou_plot_overlay(run, var = "REW", stat = "median")
+```
+
+Inter-annual statistics by day-of-year (base R, no extra dependency):
+
+```{r, eval = FALSE}
+stats <- biljou_doy_stats(run, var = "REW", probs = c(0.1, 0.9))
+head(stats)   # doy, n, mean, sd, median, q10, q90
+```
+
+To reproduce BILJOU-style **maps**, run the model over a grid of points and
+export to `sf`/`terra`. SAFRAN data (Meteo-France, 8 km, free) are read with
+`safran_to_meteo()`; see the README for download links.
+
+```{r, eval = FALSE}
+grid <- biljou_run_grid(points, meteo = meteo_per_point,
+                        soil = biljou_soil(140), lai_max = 5,
+                        forest_type = "broadleaved",
+                        budburst = 110, leaf_fall = 300,
+                        indicators = "NJstress")
+r <- biljou_grid_to_raster(grid, indicator = "NJstress", year = 2003)
+terra::plot(r)
+```
+
 ## Caveats
 
 Some constants are only described qualitatively in the public BILJOU

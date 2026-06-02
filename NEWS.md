@@ -21,6 +21,15 @@ First release.
   Granier et al. 1999 index (Eq. 5) is also returned as `is_1999`.
 * `biljou_rank_droughts()`: ranks years by duration, intensity and precocity
   (the BILJOU "classified drought years" output).
+* Graphics module (requires ggplot2): `biljou_plot_timeseries()` (multi-year
+  chronicle / faceted ETP, ETR, T, Eu, drainage, REW) and
+  `biljou_plot_overlay()` (year overlay by day-of-year with mean/median curve).
+* `biljou_doy_stats()`: inter-annual mean/median/quantiles per day-of-year.
+* Cartographic pipeline: `biljou_run_grid()` runs the model over a grid of
+  points; `biljou_grid_to_sf()` and `biljou_grid_to_raster()` export results
+  (require sf / terra).
+* `safran_to_meteo()`: converts Meteo-France SAFRAN / SIM quotidienne data to
+  the meteo input format.
 * Annual water-balance summary (`biljou_annual_balance()`).
 * Penman potential evapotranspiration helper (`penman_pet()`) and 2 m wind
   adjustment (`wind_to_2m()`).
