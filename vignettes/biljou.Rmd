@@ -1,0 +1,95 @@
+---
+title: "The BILJOU forest water balance model in R"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The BILJOU forest water balance model in R}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 5)
+```
+
+`biljouR` is an independent R re-implementation of the **BILJOU** lumped daily
+forest water balance model (Granier, Bréda, Biron & Villette, 1999, *Ecological
+Modelling* 116:269-283), as documented by INRAE UMR Silva
+(<https://appgeodb.nancy.inrae.fr/biljou/>). It is **not** produced or endorsed
+by INRAE; use the official tool for authoritative simulations.
+
+## The model in one equation
+
+The model integrates, at a **daily** time step, the soil water balance
+
+$$\Delta W = P - In - T - Eu - D$$
+
+where `P` is rainfall, `In` rainfall interception, `T` overstorey
+transpiration, `Eu` understorey + soil evaporation and `D` drainage. Drainage
+is obtained by difference / cascade through the soil layers.
+
+### Elementary fluxes
+
+* **LAI phenology.** Evergreen stands keep a constant LAI; deciduous stands ramp
+  from 0 to `lai_max` over 30 days after budburst and back to 0 over the 30 days
+  before leaf fall.
+* **Transpiration.** `T = r(LAI) · PET`, with `r = 0.125·LAI` for `LAI ≤ 6` and
+  `r = 0.75` above. `T` is reduced by 20 % of intercepted water (wet canopy) and
+  scaled by `REW/REWc` under water stress (`REWc = 0.4`).
+* **Interception.** `Th = exp(a + b·R/R0 + c·P + d·P²)`, `In = P − Th`
+  (Aussenac 1968), with stand-type coefficients; `R/R0 = 100·exp(−k·LAI)`.
+* **Understorey/soil evaporation.** `Eu = PET·exp(−k·LAI)`, limited by the
+  upper-layer water.
+* **Soil & drainage.** Each layer refills through its microporosity while a
+  fraction bypasses quickly through macroporosity; water above field capacity
+  drains to the next layer. Root uptake is weighted by fine-root fraction and
+  current relative extractable water.
+
+## A worked example
+
+```{r}
+library(biljouR)
+data(meteo_hesse)
+
+soil <- biljou_soil(
+  ewm   = c(70, 70, 40),                 # mm extractable water per layer
+  roots = c(0.6, 0.3, 0.1),              # fine-root fractions
+  macro = c(0.3, 0.2, 0.1),              # optional macroporosity
+  micro = c(0.7, 0.8, 0.9)               # optional microporosity
+)
+soil
+
+run <- biljou_run(meteo_hesse, soil, lai_max = 6,
+                  forest_type = "broadleaved",
+                  budburst = 110, leaf_fall = 300)
+run
+```
+
+### Drought indices and balance
+
+```{r}
+biljou_indices(run)
+biljou_annual_balance(run)
+```
+
+### Visualising the season
+
+```{r}
+plot(run)
+```
+
+## Computing Penman PET
+
+BILJOU is calibrated on **Penman** PET. If you do not already have it:
+
+```{r}
+penman_pet(tmean = 18, rg = 22, wind = 2, rh = 65,
+           doy = 180, latitude = 48.6, altitude = 250)
+```
+
+## Caveats
+
+Some constants are only described qualitatively in the public BILJOU
+documentation. The choices made here (macro/micro split, root-uptake weighting,
+understorey coefficient, interception clamping) are transparent and documented
+in the source, but should be **validated against the official tool** before
+production use.

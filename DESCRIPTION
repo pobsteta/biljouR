@@ -1,0 +1,24 @@
+Package: biljouR
+Type: Package
+Title: A Daily Forest Water Balance Model (BILJOU-Equivalent)
+Version: 0.1.0
+Authors@R: person("biljouR", "contributors", role = c("aut", "cre"),
+    email = "you@example.org")
+Description: An open re-implementation in R of the lumped daily forest water
+    balance model BILJOU (Granier, Breda, Biron & Villette, 1999, Ecological
+    Modelling 116:269-283), as documented by INRAE UMR Silva. The model runs
+    at a daily time step and computes canopy transpiration, rainfall
+    interception, understorey/soil evaporation, multi-layer soil water content
+    with macro-/micro-porosity drainage, and drought indices (number of stress
+    days, water-stress index Is, intensity, precocity). A Penman potential
+    evapotranspiration helper is provided. This package is an independent
+    re-implementation for research and teaching; it is not produced or endorsed
+    by INRAE. For authoritative simulations use the official tool at
+    <https://appgeodb.nancy.inrae.fr/biljou/>.
+License: GPL-3
+Encoding: UTF-8
+Depends: R (>= 3.5.0)
+Suggests: testthat (>= 3.0.0), knitr, rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 7.2.3
+LazyData: true
