@@ -1,5 +1,10 @@
 # biljouR
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/pobsteta/biljouR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pobsteta/biljouR/actions/workflows/R-CMD-check.yaml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+<!-- badges: end -->
+
 An independent **R re-implementation of the BILJOU forest water balance model**
 (Granier, Bréda, Biron & Villette, 1999, *Ecological Modelling* 116:269-283),
 as documented by INRAE UMR Silva at <https://appgeodb.nancy.inrae.fr/biljou/>.
@@ -17,8 +22,19 @@ precocity).
 
 ## Install
 
+From GitHub (recommended):
+
 ```r
-# from the package source directory
+# install.packages("remotes")
+remotes::install_github("pobsteta/biljouR")
+
+# with the vignette:
+remotes::install_github("pobsteta/biljouR", build_vignettes = TRUE)
+```
+
+Or from a local source tarball:
+
+```r
 install.packages("path/to/biljouR_0.1.0.tar.gz", repos = NULL, type = "source")
 ```
 
