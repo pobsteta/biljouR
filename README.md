@@ -2,8 +2,10 @@
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/pobsteta/biljouR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pobsteta/biljouR/actions/workflows/R-CMD-check.yaml)
-[![pkgdown](https://github.com/pobsteta/biljouR/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/pobsteta/biljouR/actions/workflows/pkgdown.yaml)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?logo=github)](https://github.com/pobsteta/biljouR/releases/tag/v0.1.0)
+[![pkgdown](https://github.com/pobsteta/biljouR/actions/workflows/pkgdown.yaml/badge.svg)](https://pobsteta.github.io/biljouR/)
+[![codecov](https://codecov.io/gh/pobsteta/biljouR/graph/badge.svg)](https://codecov.io/gh/pobsteta/biljouR)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?logo=opensourceinitiative)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
 📖 **Documentation et articles : <https://pobsteta.github.io/biljouR>**
