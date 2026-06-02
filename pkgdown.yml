@@ -1,0 +1,10 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  biljou: biljou.html
+  cartographie-safran: cartographie-safran.html
+last_built: 2026-06-02T12:47Z
+urls:
+  reference: https://pobsteta.github.io/biljouR/reference
+  article: https://pobsteta.github.io/biljouR/articles

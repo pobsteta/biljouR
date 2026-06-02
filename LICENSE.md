@@ -1,0 +1,9 @@
+# GNU General Public License v3.0
+
+This package is licensed under the terms of the GNU General Public
+License version 3 (GPL-3). The full text is available at
+<https://www.gnu.org/licenses/gpl-3.0.html>.
+
+biljouR is an independent re-implementation of the BILJOU forest water
+balance model (Granier et al. 1999) for research and teaching. It is not
+produced or endorsed by INRAE.
