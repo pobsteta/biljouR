@@ -2,6 +2,7 @@
 export(biljou_annual_balance)
 export(biljou_indices)
 export(biljou_lai)
+export(biljou_rank_droughts)
 export(biljou_run)
 export(biljou_soil)
 export(penman_pet)

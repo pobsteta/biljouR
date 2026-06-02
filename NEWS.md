@@ -15,8 +15,12 @@ First release.
   (`potential_understorey_evap()`).
 * 1–3 layer soil (`biljou_soil()`) with macro-/micro-porosity fast-bypass
   drainage and root- and REW-weighted water uptake.
-* Drought indices per year (`biljou_indices()`): number of stress days,
-  water-stress index `Is = Σ SWD/EWM`, intensity, precocity (Eqs. 4–5).
+* Drought indices per year (`biljou_indices()`) using the online tool's
+  annual-file names and definitions: `NJstress` (stress days), `Istress`
+  (\eqn{\sum (0.4-REW)/0.4}), `DEBstress` (onset day); the un-normalised
+  Granier et al. 1999 index (Eq. 5) is also returned as `is_1999`.
+* `biljou_rank_droughts()`: ranks years by duration, intensity and precocity
+  (the BILJOU "classified drought years" output).
 * Annual water-balance summary (`biljou_annual_balance()`).
 * Penman potential evapotranspiration helper (`penman_pet()`) and 2 m wind
   adjustment (`wind_to_2m()`).
