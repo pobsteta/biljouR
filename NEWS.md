@@ -30,6 +30,11 @@ First release.
   (require sf / terra).
 * `safran_to_meteo()`: converts Meteo-France SAFRAN / SIM quotidienne data to
   the meteo input format.
+* SAFRAN NetCDF mirror access (INRAE Dataverse, DOI 10.57745/BAZ12C):
+  `safran_dataverse_files()` lists the per-variable NetCDF files,
+  `safran_download()` downloads the variables BILJOU needs, and
+  `safran_nc_to_meteo()` extracts per-point meteo from them (require jsonlite /
+  terra).
 * Annual water-balance summary (`biljou_annual_balance()`).
 * Penman potential evapotranspiration helper (`penman_pet()`) and 2 m wind
   adjustment (`wind_to_2m()`).

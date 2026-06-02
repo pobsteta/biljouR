@@ -84,7 +84,7 @@ plot(run)                 # REW + flux journaliers
 | Statistiques inter-annuelles | `biljou_doy_stats()` | — |
 | Graphiques (ggplot2) | `biljou_plot_timeseries()`, `biljou_plot_overlay()` | — |
 | Cartographie | `biljou_run_grid()`, `biljou_grid_to_sf()`, `biljou_grid_to_raster()` | — |
-| Données SAFRAN | `safran_to_meteo()` | meteo.data.gouv.fr |
+| Données SAFRAN | `safran_download()`, `safran_dataverse_files()`, `safran_nc_to_meteo()`, `safran_to_meteo()` | INRAE / meteo.data.gouv.fr |
 | ETP Penman | `penman_pet()` | Penman 1948 / FAO-56 |
 
 ## Correspondance avec les sorties de l'outil en ligne
@@ -113,42 +113,43 @@ nationales **pré-calculées** (mais elles sont reproductibles avec
 
 Pour produire des cartes comme l'outil en ligne, il faut une météo en points de
 grille. Les données **SAFRAN** (réanalyse Météo-France, maille 8×8 km, journalier,
-1958→présent) sont **gratuites** depuis 2024 :
-
-- **meteo.data.gouv.fr** — jeu « Données changement climatique – SIM quotidienne » :
-  CSV compressés par lots de 1 à 10 ans, tous les points de grille, tous paramètres
-  (T, précipitations liquides/solides, vent, rayonnement, humidité, ETP de
-  référence `ETP_Q`, humidité du sol…). <https://meteo.data.gouv.fr>
-- **API OGC EDR SAFRAN** (1958→aujourd'hui) pour des requêtes ciblées par
-  emprise/période, via meteo.data.gouv.fr.
-- **Miroir NetCDF** par variable sur l'entrepôt INRAE (DOI 10.57745/BAZ12C),
-  pratique pour le calcul intensif.
-- Alternative mondiale : **ERA5-Land** (≈9 km) via le package R `ecmwfr` (API
-  Copernicus CDS).
-
-Mention obligatoire à la diffusion : « Source : Météo-France ».
-
-Exemple de chaîne complète :
+1958→présent) sont **gratuites** depuis 2024. Pour ce package, le **miroir NetCDF
+par variable** (INRAE, DOI 10.57745/BAZ12C) est la source la plus pratique : on
+ne télécharge que les variables utiles (`PRELIQ_Q`, `PRENEI_Q`, `ETP_Q`), une
+fois, puis on extrait tous les points en lecture paresseuse. Le package fournit
+des fonctions dédiées :
 
 ```r
-# 1. lire un extrait SIM quotidienne (CSV de meteo.data.gouv.fr)
-sim <- read.csv2("SIM_2003.csv")            # colonnes DATE, PRELIQ_Q, ETP_Q, ...
-m   <- safran_to_meteo(sim)                 # -> date / doy / rain / pet
+# 1. lister et télécharger les NetCDF des variables utiles (API Dataverse)
+files <- safran_download(variables = c("PRELIQ_Q","PRENEI_Q","ETP_Q"),
+                         dest_dir = "safran")   # -> chemins locaux nommés
 
-# 2. table de points de grille (LAMBX, LAMBY en hectomètres -> EPSG:27572)
-#    convertir en lon/lat pour la carte :
-# pts_sf <- sf::st_transform(
-#   sf::st_as_sf(pts, coords = c("x","y"), crs = 27572), 4326)
+# 2. extraire la météo par point depuis les NetCDF (terra)
+points <- data.frame(id = c("p1","p2"), lon = c(6.0,6.2), lat = c(48.6,48.8))
+meteo_list <- safran_nc_to_meteo(files, points)  # liste de data.frames par point
 
 # 3. lancer le modèle sur la grille, puis cartographier
-grid <- biljou_run_grid(points, meteo = meteo_par_point,
-                        soil = biljou_soil(140),
-                        lai_max = 5, forest_type = "broadleaved",
+grid <- biljou_run_grid(points, meteo = meteo_list,
+                        soil = biljou_soil(140), lai_max = 5,
+                        forest_type = "broadleaved",
                         budburst = 110, leaf_fall = 300,
                         indicators = "NJstress")
 r <- biljou_grid_to_raster(grid, indicator = "NJstress", year = 2003)
 terra::plot(r)
 ```
+
+Autres voies d'accès aux mêmes données SAFRAN :
+
+- **meteo.data.gouv.fr** — jeu « Données changement climatique – SIM quotidienne » :
+  CSV compressés par lots de 1 à 10 ans (à lire puis convertir avec
+  `safran_to_meteo()`). <https://meteo.data.gouv.fr>
+- **API OGC EDR SAFRAN** (1958→aujourd'hui) pour des requêtes ciblées par
+  emprise/période — plus léger pour une simulation ponctuelle.
+- Alternative mondiale : **ERA5-Land** (≈9 km) via le package R `ecmwfr`.
+
+Mention obligatoire à la diffusion : « Source : Météo-France ». La géométrie de
+la grille SAFRAN peut varier selon les produits : inspectez un fichier avec
+`terra::rast()` et ajustez le mapping de `safran_nc_to_meteo()` si besoin.
 
 ## Limites assumées
 
